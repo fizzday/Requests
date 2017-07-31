@@ -16,7 +16,7 @@ class Request
     {
         if (self::$all) return self::$all;
 
-        $method = $_SERVER['REQUEST_METHOD'];
+        $method = self::method();
 
         if ($method == 'GET') $data = $_GET;
         else {
