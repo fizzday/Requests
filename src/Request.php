@@ -26,7 +26,7 @@ class Request
                 $php_input = file_get_contents('php://input');
                 $data = json_decode($php_input, true);
                 if (!$data) {
-                    parse_str($php_input, $data);
+                    parse_str(file_get_contents('php://input'), $data);
                 }
             }
         }
@@ -36,9 +36,7 @@ class Request
             self::Add_S($data);
         }
 
-        self::$all = $data;
-
-        return self::$all;
+        return self::$all = $data;
     }
 
     /**
@@ -61,6 +59,11 @@ class Request
         }
     }
 
+    /**
+     * 获取头信息
+     * @param string $head
+     * @return null
+     */
     public static function header($head='')
     {
         $head_str = 'HTTP_'.strtoupper($head);
@@ -104,7 +107,5 @@ class Request
                 }
             }
         }
-
-//        return $array;
     }
 }
